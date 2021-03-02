@@ -1,0 +1,97 @@
+.owl-carousel {
+  .owl-nav {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 30px;
+
+    @media only screen and (max-width: 425px) {
+      padding: 0 15px;
+    }
+
+    button.owl-prev,
+    button.owl-next {
+      //background-color: palette(main, base);
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      margin: 0;
+      padding: 0;
+      outline: none;
+      transition: all 0.2s ease;
+      @include align-center(vertical);
+      z-index: 2;
+      overflow: hidden;
+
+      span {
+        display: none;
+      }
+
+      &::before {
+        @include fontAwesome;
+        font-weight: 600;
+        @include align-center(both);
+        color: red;
+        @include font-size(26px);
+      }
+
+      &:hover {
+          &::before {
+            color: palette(main, base);
+          }
+        }
+    }
+
+    .owl-prev {
+      left: 0;
+
+      &::before {
+        content: "\f060";
+      }
+    }
+
+    .owl-next {
+      right: 0;
+
+      &::before {
+        content: "\f061";
+      }
+    }
+  }
+
+  .owl-dots {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 30px;
+
+    @media only screen and (max-width: 425px) {
+      padding: 0 15px;
+    }
+
+    .owl-dot {
+      outline: none;
+      background-color: black;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      margin: 0 5px;
+    }
+
+    .owl-dot:hover {
+      background-color: palette(main, base);
+    }
+
+    .owl-dot.active {
+      width: 31px;
+      height: 10px;
+      border-radius: 4px;
+      background-color: palette(main, base);
+    }
+  }
+}
