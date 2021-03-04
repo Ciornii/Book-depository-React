@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './app.scss';
+import { withBookstoreService } from '../hoc';
 
-export default class App extends Component {
-    render() {
-        return (
-            <div className="container">
-                <h1>React Sandbox</h1>
-            </div>
-        );
-    }
-}
+const App = ({ bookstoreService }) => {
+  console.log(bookstoreService.getBooks());
+  return (
+    <div className='container'>
+      <h1>App</h1>
+    </div>
+  );
+};
+
+export default withBookstoreService()(App);

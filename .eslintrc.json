@@ -1,0 +1,33 @@
+{
+  "extends": ["airbnb", "plugin:react/recommended", "prettier", "prettier/flowtype", "prettier/react"],
+  "plugins": ["react", "prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true,
+      "jsx": true
+    },
+    "ecmaVersion": 2018
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "commonjs": true
+  },
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": "on",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/destructuring-assignment": "warn",
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "prettier/prettier": "error",
+    "linebreak-style": 0,
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for": "off",
+    "no-console": "off",
+    "no-shadow": "off"
+  }
+}
