@@ -1,61 +1,67 @@
-/**
- * Global styles
- */
-
 html {
-  font-size: 16px;
+     font-size: 16px;
 
-  @media only screen and (max-width: 768px) {
-    font-size: 15px;
-  }
+     @media only screen and (max-width: 768px) {
+          font-size: 15px;
+     }
 
-  @media only screen and (max-width: 576px) {
-    font-size: 14px;
-  }
+     @media only screen and (max-width: 576px) {
+          font-size: 14px;
+     }
 }
 
 body {
-  font-family: $mainFont-regular;
-  @include font-size(16px);
-  font-weight: 400;
-  line-height: 1.3;
-  color: #222;
+     font-family: $main-font;
+     @include font-size(16px);
+     font-weight: 400;
+     line-height: 1.3;
+     color: #222;
+     overflow-anchor: none;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+     font-family: $main-font;
+     font-weight: bold;
+     text-transform: uppercase;
+}
+
+
 h1 {
-  @include font-size(62px);
+     @include font-size(62px);
 }
 
 h2 {
-  @include font-size(43px);
+     @include font-size(43px);
 }
 
 h3 {
-  @include font-size(35px);
+     @include font-size(35px);
 }
 
 h4 {
-  @include font-size(28px);
+     @include font-size(28px);
 }
 
 button {
-  background-color: transparent;
+     font-family: $main-font;
+     outline: none;
 }
 
 input,
 textarea {
-  font-family: $mainFont-regular;
+     font-family: $main-font;
 }
 
 .main-wrapper {
-  overflow: hidden;
+     overflow: hidden;
+     z-index: z('site-header');
 }
 
 // .container {
-//   border: 1px solid blue;
+//      border: 1px solid blue;
 // }
-
-.test {
-  padding: 40px;
-  height: 500px;
-}

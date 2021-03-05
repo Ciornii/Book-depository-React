@@ -22,10 +22,10 @@ class BookList extends Component {
     const { books } = this.props;
 
     return (
-      <ul>
+      <ul className='products__cards'>
         {books.map(book => {
           return (
-            <li key={book.id}>
+            <li key={book.id} className='product__card'>
               <BookListItem book={book} />
             </li>
           );

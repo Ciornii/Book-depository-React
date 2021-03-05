@@ -2,10 +2,105 @@
  * Mixins
  */
 
-@import "./mixins/gradients";
-@import "./mixins/others";
+// ------------------------------------------------------- text
+// @include font-size(16px);
+// @include text-shorten;
+// text-img(../url, 120px);
+// ------------------------------------------------------- dimensions
+// @include min-height(500px);
+// @include height(500px);
+// @include width(500px);
+// @include aspect-ratio(1, 1);
+// ------------------------------------------------------- position
+// @include align-center(both);
+// @include align-center(horizontal);
+// @include align-center(vertical);
+// @include center_block;
+// @include absolute;
+// ------------------------------------------------------- images and backgrounds
+// @include responsive_img;
+// @include cover-background;
+// ------------------------------------------------------- others
+// @include clearfix;
+// @include fontAwesome;
+// @include customScroll($size: 6px, $radius: 0px);
+// @include resizable(vertical);
+// @include tab-focus();
+// ------------------------------------------------------- Media queries
+// @include mq(768px) {}
+// @include mq(768px, min) {}
 
-// ============================================================================= Dimensions
+// @include mq(1440px) {
+//     desktop
+// }
+// @include mq(1248px) {
+//     laptop
+// }
+// @include mq(1024px) {
+//     tablet-large
+// }
+// @include mq(768px) {
+//     tablet
+// }
+// @include mq(640px) {
+//     tablet-small
+// }
+// @include mq(560px) {
+//     phablet
+// }
+// @include mq(480px) {
+//     phone-wide
+// }
+// @include mq(414px) {
+//     phone
+// }
+// @include mq(375px) {
+//     phone-small
+// }
+// @include mq(320px) {
+//     iphone5
+// }
+
+
+
+
+
+// ------------------------------------------------------- text
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+@mixin text-shorten {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-img($url, $height: 100px) {
+  background: url($url) no-repeat 0 0;
+  background-size: contain;
+  height: $height;
+  text-indent: -9999999px;
+}
+
+
+// ------------------------------------------------------- dimensions
+@mixin min-height($size) {
+  min-height: $size;
+  min-height: calculateRem($size);
+}
+
+@mixin height($size) {
+  height: $size;
+  height: calculateRem($size);
+}
+
+@mixin width($size) {
+  width: $size;
+  width: calculateRem($size);
+}
+
 @mixin aspect-ratio($width, $height) {
   position: relative;
 
@@ -25,7 +120,7 @@
   }
 }
 
-// ============================================================================= Position
+// ------------------------------------------------------- position
 @mixin align-center($position) {
   position: absolute;
 
@@ -66,7 +161,8 @@
   top: 0;
 }
 
-// ============================================================================= Images and Backgrounds
+
+// ------------------------------------------------------- images and backgrounds
 @mixin responsive_img {
   display: block;
   width: 100%;
@@ -80,56 +176,16 @@
   background-position: center;
 }
 
-@mixin img-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
-// ============================================================================= Text
-@mixin font-size($size) {
-  font-size: $size;
-  font-size: calculateRem($size);
-}
-
-@mixin text-shorten {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-@mixin text-img($url, $height: 100px) {
-  background: url($url) no-repeat 0 0;
-  background-size: contain;
-  height: $height;
-  text-indent: -9999999px;
-}
-
-// ============================================================================= Fonts
-@mixin font-face($file, $folder, $weight: normal, $style: normal) {
-  @font-face {
-    font-family: "#{$file}";
-    src: url("../fonts/#{$folder}/#{$file}.ttf") format("truetype");
-    // src: 
-    //   url("../fonts/#{$folder}/#{$file}.eot"),
-    //   url("../fonts/#{$folder}/#{$file}.eot?#iefix")format("embedded-opentype"),
-    //   url("../fonts/#{$folder}/#{$file}.woff") format("woff"),
-    //   url("../fonts/#{$folder}/#{$file}.ttf") format("truetype"),
-    //   url("../fonts/#{$folder}/#{$file}.svg?#webfont") format("svg");
-    font-weight: $weight;
-    font-style: $style;
-    font-display: swap;
-  }
-}
-
-// ============================================================================= Media queries
+// ------------------------------------------------------- Media queries
 @mixin mq($width, $type: max) {
   @media only screen and (#{$type}-width: $width) {
     @content;
   }
 }
 
-// ============================================================================= others
+
+// ------------------------------------------------------- others
 @mixin clearfix() {
 
   &:before,
@@ -150,28 +206,25 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   font-family: "Font Awesome 5 Free";
-  font-weight: 600;
-  font-size: 16px;
 }
 
-@mixin customScroll($size: 6px, $radius: 0px) {
+@mixin customScroll($size: 6px, $radius: 0px){
+ 
   * {
-    scrollbar-color: #c1c1c1 #f1f1f1;
+    scrollbar-color:  #c1c1c1  #f1f1f1;
     scrollbar-width: thin;
   }
-
+   
   ::-webkit-scrollbar {
     width: $size;
     height: $size;
   }
-
   ::-webkit-scrollbar-thumb {
-    background-color: #c1c1c1;
-    border-radius: $radius;
+      background-color: #c1c1c1;
+      border-radius: $radius;
   }
-
   ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+      background-color: #f1f1f1;
   }
 }
 
@@ -185,61 +238,3 @@
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: 0px;
 }
-
-// ============================================================================= Dimensions
-// @include aspect-ratio(1, 1);
-// ============================================================================= Position
-// @include align-center(both);
-// @include align-center(horizontal);
-// @include align-center(vertical);
-// @include center_block;
-// @include absolute;
-// ============================================================================= Images and Backgrounds
-// @include responsive_img;
-// @include cover-background;
-// @include img-fit;
-// ============================================================================= Text
-// @include font-size(16px);
-// @include text-shorten;
-// text-img(../../../url, 120px);
-// ============================================================================= Fonts
-// @include font-face($file, $folder, $weight: normal, $style: normal);
-// ============================================================================= Others
-// @include clearfix;
-// @include fontAwesome;
-// @include customScroll($size: 6px, $radius: 0px);
-// @include resizable(vertical);
-// ============================================================================= Media queries
-// @include mq(768px) {}
-// @include mq(768px, min) {}
-
-// @include mq(1440px) {
-//     desktop
-// }
-// @include mq(1248px) {
-//     laptop
-// }
-// @include mq(1024px) {
-//     tablet-large
-// }
-// @include mq(768px) {
-//     tablet
-// }
-// @include mq(640px) {
-//     tablet-small
-// }
-// @include mq(560px) {
-//     phablet
-// }
-// @include mq(480px) {
-//     phone-wide
-// }
-// @include mq(414px) {
-//     phone
-// }
-// @include mq(375px) {
-//     phone-small
-// }
-// @include mq(320px) {
-//     iphone5
-// }

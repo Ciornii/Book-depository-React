@@ -1,0 +1,60 @@
+.quotes {
+  text-align: center;
+  width: 100%;
+  background: url("../img/bg/bg348.png") center no-repeat;
+  background-color: black;
+  background-size: cover;
+  padding: 60px 0;
+  color: white;
+  margin-top: 20rem;
+  
+  h2 {
+    text-align: center;
+    @include font-size(32px);
+    color: white;
+    margin-bottom: 50px;
+    font-weight: 400;
+  }
+
+  .quotes__inner {
+    width: 100%;
+    position: relative;
+    min-height: 310px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    transition: all 3s ease;
+
+    .quotes__text {
+      @include font-size(22px);
+      color: white;
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto;
+      margin-bottom: 25px;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .quotes__author {
+      @include font-size(20px);
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      background-color: #e65a619a;
+
+      &:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 30px;
+        height: 3px;
+        margin-right: 10px;
+        background-color: white;
+      }
+    }
+  }
+}

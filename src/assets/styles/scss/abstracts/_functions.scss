@@ -6,13 +6,8 @@
 // calculateRem($size) 
 
 // ------------------------------------------------------- Half-numbers
-// .example {
-//    width: $element-width;
-//    height: h($element-width);
-// }
-
-// ------------------------------------------------------- Color palette
-// background-color: palette(main, base);
+// width: $element-width;
+// height: h($element-width);
 
 
 // ------------------------------------------------------- From px to rem
@@ -21,12 +16,13 @@
    @return $remSize * 1rem;
 }
 
+
 // ------------------------------------------------------- Half-numbers
 @function h($num) {
    @return $num / 2;
 }
 
-// ------------------------------------------------------- Color palette
-@function palette($palette, $tone: 'base') {
-   @return map-get(map-get($palettes, $palette), $tone);
-}
+// .example {
+//    width: $element-width;
+//    height: h($element-width);
+// }

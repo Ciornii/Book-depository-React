@@ -1,0 +1,157 @@
+.popup-list {
+  width: 312px;
+  max-height: 378px;
+  min-height: 155px;
+  background-color: white;
+  border: 1px solid $border-color;
+  padding: 28px 16px 21px 22px;
+  position: absolute;
+  right: -3px;
+  top: 41px;
+  box-shadow: 2px 3px 12px rgba(184, 184, 184, 0.2);
+  @include customScroll();
+  z-index: 100;
+  visibility: hidden;
+
+  &--active {
+    visibility: visible;
+    animation: fadeIn 0.2s;
+  }
+
+  .popup-list__main-title {
+    @include font-size(20px);
+    font-weight: bold;
+    color: $black;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .popup-list__wrapper {
+    max-height: 237px;
+    overflow-y: scroll;
+
+    .popup-list__item {
+      position: relative;
+      border-top: 1px solid $border-color;
+      padding: 14px 30px 12px 3px;
+      margin-right: 1rem;
+      height: 79px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .popup-list__title {
+        @include font-size(14px);
+        font-weight: 600;
+        color: $black;
+      }
+
+      .popup-list__author {
+        @include font-size(13px);
+        color: $dark-grey;
+      }
+
+      button.popup-list__delete {
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+        background-color: transparent;
+        position: absolute;
+        @include align-center(vertical);
+        right: 0px;
+
+        svg {
+          height: 15px;
+          width: 15px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          fill: $icon-color;
+          transition: fill .2s ease;
+        }
+
+        &:hover {
+          svg {
+            fill: $dark-grey;
+          }
+        }
+      }
+    }
+  }
+
+  button.popup-list__more{
+    position: relative;
+    @include center_block;
+    width: auto;
+    @include font-size(14px);
+    text-align: center;
+    color: $red;
+    text-decoration: underline;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: text-decoration 0.2s ease;
+    margin-top: 2rem;
+    background-color: transparent;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:disabled {
+      color: $black;
+      text-decoration: none;
+    }
+  }
+
+  .popup-list__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    svg {
+      position: absolute;
+      top: 35px;
+      right: 19px;
+      width: 11px;
+      height: 11px;
+      fill: $black;
+      cursor: pointer;
+    }
+  }
+
+  .popup-list__triangle {
+    position: absolute;
+    top: -14px;
+    right: 16px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 14px 22px;
+    border-color: transparent transparent #dee0e0 transparent;
+    line-height: 0px;
+    _border-color: #000000 #000000 #007bff #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+
+    &::after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 13px 21px;
+      border-color: transparent transparent white transparent;
+      line-height: 0px;
+      _border-color: #000000 #000000 #007bff #000000;
+      _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+      position: absolute;
+      left: -22px;
+      top: 2px;
+    }
+  }
+}
+
+
+
+.popup-list[data-popup="My Books"] {
+  right: 48px;
+}
