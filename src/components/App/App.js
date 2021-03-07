@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { CartPage, CatalogPage } from '../pages';
+import { MyListPage, CatalogPage } from '../pages';
 
 import './app.scss';
 
@@ -9,7 +9,7 @@ const App = () => {
     <div className='container'>
       <Switch>
         <Route path='/' component={CatalogPage} exact />
-        <Route path='/cart' component={CartPage} />
+        <Route path='/my-list' component={MyListPage} />
       </Switch>
     </div>
   );

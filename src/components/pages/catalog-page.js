@@ -1,5 +1,6 @@
 import React from 'react';
 import BookList from '../book-list';
+import MyListPage  from './my-list-page';
 
 const CatalogPage = () => {
   return (
@@ -99,6 +100,7 @@ const CatalogPage = () => {
               <button className='btn load-more' id='loadMore'>
                 Load more
               </button>
+              <MyListPage/> 
             </div>
           </div>
         </div>

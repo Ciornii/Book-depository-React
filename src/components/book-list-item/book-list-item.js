@@ -1,7 +1,7 @@
 import React from 'react';
 import './book-list-item.scss';
 
-const BookListItem = ({ book }) => {
+const BookListItem = ({ book, onAddedToMyList }) => {
   const { title, author, description, photo } = book;
   return (
     <>
@@ -20,8 +20,10 @@ const BookListItem = ({ book }) => {
             Quick View
           </a>
           <div className='product__btns'>
-            <button data-add-to='My Books' title='My Books'></button>
-            <button data-add-to='Wish List' title='Wish List'></button>
+            <button onClick={onAddedToMyList} title='My Books'>
+              my books
+            </button>
+            <button title='Wish List'>wishlist</button>
           </div>
         </div>
       </div>

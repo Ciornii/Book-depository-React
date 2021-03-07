@@ -1,7 +1,7 @@
-import CartPage from './cart-page';
+import MyListPage from './my-list-page';
 import CatalogPage from './catalog-page';
 
 export {
-  CartPage,
+  MyListPage,
   CatalogPage
 }
