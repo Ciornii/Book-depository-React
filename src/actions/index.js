@@ -25,6 +25,13 @@ export const bookAddedToMyList = bookId => {
   };
 };
 
+export const bookRemovedFromMyList = bookId => {
+  return {
+    type: 'BOOK_REMOVED_FROM_MY_LIST',
+    payload: bookId,
+  };
+};
+
 const fetchBooks = (bookstoreService, dispatch) => () => {
   dispatch(booksRequested());
   bookstoreService

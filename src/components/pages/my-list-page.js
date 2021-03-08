@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { bookRemovedFromMyList } from '../../actions';
+
 const MyListPage = ({ items, onDelete }) => {
   const renderRow = (item, idx) => {
     const { id, photo, title, author, bookLink, summaryLink } = item;
@@ -32,18 +34,14 @@ const MyListPage = ({ items, onDelete }) => {
   );
 };
 
-const mapStateToProps = ({ myListItems }) => {
+const mapStateToProps = ({ myListItems: { myListItems } }) => {
   return {
     items: myListItems,
   };
 };
 
-const mapDispatchToProps = () => {
-  return {
-    onDelete: id => {
-      console.log(`Delete ${id}`);
-    },
-  };
+const mapDispatchToProps = {
+  onDelete: bookRemovedFromMyList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyListPage);
