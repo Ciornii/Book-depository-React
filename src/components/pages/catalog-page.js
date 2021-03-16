@@ -1,6 +1,7 @@
 import React from 'react';
 import BookList from '../book-list';
 import MyListPage from './my-list-page';
+import Sorting from '../Sorting';
 
 const CatalogPage = () => {
   return (
@@ -71,26 +72,7 @@ const CatalogPage = () => {
 
             <div className='products__results'>
               <div className='products__settings'>
-                <div className='products__sorting'>
-                  <form method='get' action=''>
-                    Sort by:
-                    <select data-sort-items>
-                      <option value='default' defaultValue disabled>
-                        Default
-                      </option>
-                      <option value='a-z'>Name (A-Z)</option>
-                      <option value='z-a'>Name (Z-A)</option>
-                    </select>
-                  </form>
-                  <form method='get' action=''>
-                    <select data-items-perpage>
-                      <option value='6' defaultValue>
-                        6
-                      </option>
-                      <option value='12'>12</option>
-                    </select>
-                  </form>
-                </div>
+                <Sorting/>
                 <div className='products__views'>
                   <div className='products__view products__view--active'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 276.167 276.167'>
