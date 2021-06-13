@@ -60,3 +60,8 @@ export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps),
 )(BookListContainer);
+
+// Without compose:
+// export default withBookstoreService()(
+//   connect(mapStateToProps, mapDispatchToProps)(BookListContainer)
+// );

@@ -1,4 +1,4 @@
-const updateMyListItems = (state, action) => {
+const updateMyList = (state, action) => {
   if (state === undefined) {
     return {
       myListItems: [],
@@ -40,4 +40,4 @@ const updateMyListItems = (state, action) => {
   }
 };
 
-export default updateMyListItems;
+export default updateMyList;

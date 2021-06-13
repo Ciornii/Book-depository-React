@@ -1,10 +1,10 @@
 import updateBookList from './book-list';
-import updateMyListItems from './my-list';
+import updateMyList from './my-list';
 
 const reducer = (state, action) => {
   return {
     bookList: updateBookList(state, action),
-    myListItems: updateMyListItems(state, action),
+    myListItems: updateMyList(state, action),
   };
 };
 
