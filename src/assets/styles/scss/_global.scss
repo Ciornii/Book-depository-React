@@ -57,11 +57,11 @@ textarea {
      font-family: $main-font;
 }
 
+main {
+     margin-top: 80px;
+}
+
 .main-wrapper {
      overflow: hidden;
      z-index: z('site-header');
 }
-
-// .container {
-//      border: 1px solid blue;
-// }

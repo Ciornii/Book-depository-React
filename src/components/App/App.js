@@ -11,11 +11,13 @@ const App = () => {
   return (
     <>
       <Header />
-      <Switch>
-        <Route path='/' component={CatalogPage} exact />
-        <Route path='/my-list' component={MyListPage} />
-      </Switch>
-      <Quotes />
+      <main>
+        <Switch>
+          <Route path='/' component={CatalogPage} exact />
+          <Route path='/my-list' component={MyListPage} />
+        </Switch>
+        <Quotes />
+      </main>
       <Footer />
     </>
   );

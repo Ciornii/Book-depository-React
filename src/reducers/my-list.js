@@ -9,6 +9,7 @@ const updateMyList = (state, action) => {
     bookList: { books },
     myListItems: { myListItems },
   } = state;
+  
   const bookId = action.payload;
   const book = books.find(book => book.id == bookId);
   const idx = myListItems.findIndex(({ id }) => id == bookId);

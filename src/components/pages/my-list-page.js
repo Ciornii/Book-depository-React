@@ -29,6 +29,7 @@ const MyListPage = ({ items, onDelete }) => {
 
   return (
     <>
+    My books:
       <ul>{items.map(renderRow)}</ul>
     </>
   );
@@ -36,7 +37,7 @@ const MyListPage = ({ items, onDelete }) => {
 
 const mapStateToProps = ({ myListItems: { myListItems } }) => {
   return {
-    items: myListItems,
+    items: myListItems
   };
 };
 
