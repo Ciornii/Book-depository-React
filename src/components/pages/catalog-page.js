@@ -138,7 +138,6 @@ const CatalogPage = () => {
               <button className='btn load-more' id='loadMore'>
                 Load more
               </button>
-              <MyListPage />
             </div>
           </div>
         </div>

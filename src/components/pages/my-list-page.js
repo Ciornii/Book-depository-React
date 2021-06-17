@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { bookRemovedFromMyList } from '../../actions';
 
+
 const MyListPage = ({ items, onDelete }) => {
+
   const renderRow = (item, idx) => {
     const { id, photo, title, author, bookLink, summaryLink } = item;
 
