@@ -13,7 +13,7 @@
   z-index: 100;
   visibility: hidden;
 
-  &--active {
+  &.active {
     visibility: visible;
     animation: fadeIn 0.2s;
   }
