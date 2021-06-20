@@ -32,6 +32,20 @@ export const bookRemovedFromMyList = bookId => {
   };
 };
 
+export const bookAddedToWishList = bookId => {
+  return {
+    type: 'BOOK_ADDED_TO_WISH_LIST',
+    payload: bookId,
+  };
+};
+
+export const bookRemovedFromWishList = bookId => {
+  return {
+    type: 'BOOK_REMOVED_FROM_WISH_LIST',
+    payload: bookId,
+  };
+};
+
 const fetchBooks = (bookstoreService, dispatch) => () => {
   dispatch(booksRequested());
   bookstoreService

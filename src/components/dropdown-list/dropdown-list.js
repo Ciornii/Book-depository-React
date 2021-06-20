@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { bookRemovedFromMyList } from '../../actions';
 
-const DropdownList = ({ items, onDelete, active, title, close }) => {
+const DropdownList = ({ items, onDelete, active, title, close, link }) => {
   const renderRow = (item) => {
     const { id, title, author } = item;
 
@@ -23,7 +23,7 @@ const DropdownList = ({ items, onDelete, active, title, close }) => {
       <div className='popup-list__main-title'>{title}</div>
       <div className='popup-list__close' onClick={() => close(false)}>x</div>
       <ul className='popup-list__wrapper'>{items.map(renderRow)}</ul>
-      <button className='popup-list__more'>View Full List</button>
+      <a href={link} className='popup-list__more'>View Full List</a>
       <div className='popup-list__triangle'></div>
     </div>
   );

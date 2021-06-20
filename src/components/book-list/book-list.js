@@ -3,20 +3,24 @@ import { connect } from 'react-redux';
 
 import BookListItem from '../book-list-item';
 import { withBookstoreService } from '../hoc';
-import { fetchBooks, bookAddedToMyList } from '../../actions';
+import { fetchBooks, bookAddedToMyList, bookAddedToWishList } from '../../actions';
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
 import './book-list.scss';
 
-const BookList = ({ books, onAddedToMyList }) => {
+const BookList = ({ books, onAddedToMyList, onAddedToWishList }) => {
   return (
     <ul className='products__cards'>
       {books.map(book => {
         return (
           <li key={book.id} className='product__card'>
-            <BookListItem book={book} onAddedToMyList={() => onAddedToMyList(book.id)} />
+            <BookListItem
+              book={book}
+              onAddedToMyList={() => onAddedToMyList(book.id)}
+              onAddedToWishList={() => onAddedToWishList(book.id)}
+            />
           </li>
         );
       })}
@@ -30,7 +34,7 @@ class BookListContainer extends Component {
   }
 
   render() {
-    const { books, loading, error, onAddedToMyList } = this.props;
+    const { books, loading, error, onAddedToMyList, onAddedToWishList } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -40,7 +44,13 @@ class BookListContainer extends Component {
       return <ErrorIndicator />;
     }
 
-    return <BookList books={books} onAddedToMyList={onAddedToMyList} />;
+    return (
+      <BookList
+        books={books}
+        onAddedToMyList={onAddedToMyList}
+        onAddedToWishList={onAddedToWishList}
+      />
+    );
   }
 }
 
@@ -53,6 +63,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchBooks: fetchBooks(bookstoreService, dispatch),
     onAddedToMyList: id => dispatch(bookAddedToMyList(id)),
+    onAddedToWishList: id => dispatch(bookAddedToWishList(id)),
   };
 };
 
