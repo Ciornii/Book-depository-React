@@ -1,5 +1,5 @@
 const updateWishList = (state, action) => {
-  if (state.wishListItems === undefined) {
+  if (state === undefined || state.wishListItems === undefined) {
     return {
       wishListItems: [],
     };

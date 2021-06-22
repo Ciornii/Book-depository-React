@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { MyListPage, CatalogPage } from '../pages';
+import { CatalogPage, MyListPage, WishListPage } from '../pages';
 import Header from '../layouts/header';
 import Quotes from '../layouts/quotes';
 import Footer from '../layouts/footer';
@@ -15,6 +15,7 @@ const App = () => {
         <Switch>
           <Route path='/' component={CatalogPage} exact />
           <Route path='/my-list' component={MyListPage} />
+          <Route path='/wish-list' component={WishListPage} />
         </Switch>
         <Quotes />
       </main>

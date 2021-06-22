@@ -1,5 +1,5 @@
 const updateMyList = (state, action) => {
-  if (state.myListItems === undefined) {
+  if (state === undefined || state.myListItems === undefined) {
     return {
       myListItems: [],
     };

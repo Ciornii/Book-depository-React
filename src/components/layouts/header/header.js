@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import DropdownList from '../../dropdown-list';
+import MyListDropdown from '../../dropdown-list/my-list-dropdown';
+import WishListDropdown from '../../dropdown-list/wish-list-dropdown';
 
 const useClickOutside = (handler, domNode) => {
   useEffect(() => {
@@ -80,11 +81,12 @@ const Header = ({ myListItems, wishListItems }) => {
                   </svg>
                   <div className='navbar__counter'>{myListItems.length}</div>
                 </button>
-                <DropdownList
+                <MyListDropdown
                   active={myListDropdown}
                   title='MY BOOKS'
                   close={setMyListDropdown}
                   link='/my-list'
+                  className='popup-list--my-list'
                 />
               </div>
               <div ref={wishListRef}>
@@ -97,7 +99,7 @@ const Header = ({ myListItems, wishListItems }) => {
                   </svg>
                   <div className='navbar__counter'>{wishListItems.length}</div>
                 </button>
-                <DropdownList
+                <WishListDropdown
                   active={wishListDropdown}
                   title='WISH LIST'
                   close={setWishListDropdown}

@@ -80,7 +80,7 @@
     }
   }
 
-  .popup-list__more{
+  .popup-list__more {
     position: relative;
     @include center_block;
     width: auto;
@@ -151,7 +151,6 @@
 }
 
 
-
-.popup-list[data-popup="My Books"] {
+.popup-list--my-list {
   right: 48px;
 }

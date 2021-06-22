@@ -80,11 +80,11 @@
       .navbar__btns {
         display: flex;
         position: relative;
+        gap: 28px;
 
         .navbar__btn {
           background-color: transparent;
           position: relative;
-          margin-right: 28px;
           display: block;
           position: relative;
           height: 26px;
