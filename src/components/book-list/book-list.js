@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 
 import BookListItem from '../book-list-item';
 import { withBookstoreService } from '../hoc';
-import { fetchBooks, bookAddedToMyList, bookAddedToWishList } from '../../actions';
+import { fetchBooks, bookAddedToMyList, bookAddedToWishList, bookRemovedFromWishList, bookRemovedFromMyList } from '../../actions';
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
 import './book-list.scss';
 
-const BookList = ({ books, onAddedToMyList, onAddedToWishList }) => {
+const BookList = ({ books, onAddedToMyList, onAddedToWishList, onDeleteFromMyList,
+  onDeleteFromWishList }) => {
   return (
     <ul className='products__cards'>
       {books.map(book => {
@@ -20,6 +21,12 @@ const BookList = ({ books, onAddedToMyList, onAddedToWishList }) => {
               book={book}
               onAddedToMyList={() => onAddedToMyList(book.id)}
               onAddedToWishList={() => onAddedToWishList(book.id)}
+              onDeleteFromMyList={
+                () => onDeleteFromMyList(book.id)
+              }
+              onDeleteFromWishList={
+                () => onDeleteFromWishList(book.id)
+              }
             />
           </li>
         );
@@ -34,7 +41,8 @@ class BookListContainer extends Component {
   }
 
   render() {
-    const { books, loading, error, onAddedToMyList, onAddedToWishList } = this.props;
+    const { books, loading, error, onAddedToMyList, onAddedToWishList, onDeleteFromMyList,
+      onDeleteFromWishList } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -49,6 +57,12 @@ class BookListContainer extends Component {
         books={books}
         onAddedToMyList={onAddedToMyList}
         onAddedToWishList={onAddedToWishList}
+        onDeleteFromMyList={
+          onDeleteFromMyList
+        }
+        onDeleteFromWishList={
+          onDeleteFromWishList
+        }
       />
     );
   }
@@ -62,8 +76,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { bookstoreService } = ownProps;
   return {
     fetchBooks: fetchBooks(bookstoreService, dispatch),
-    onAddedToMyList: id => dispatch(bookAddedToMyList(id)),
-    onAddedToWishList: id => dispatch(bookAddedToWishList(id)),
+    onAddedToMyList: id => {
+      dispatch(bookAddedToMyList(id))
+      dispatch(bookRemovedFromWishList(id))
+    },
+    onAddedToWishList: id => {
+      dispatch(bookAddedToWishList(id))
+      dispatch(bookRemovedFromMyList(id))
+    },
+    onDeleteFromMyList: id => dispatch(bookRemovedFromMyList(id)),
+    onDeleteFromWishList: id => dispatch(bookRemovedFromWishList(id)),
   };
 };
 

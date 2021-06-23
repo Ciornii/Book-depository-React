@@ -33,9 +33,11 @@ const updateMyList = (state, action) => {
         };
       }
     case 'BOOK_REMOVED_FROM_MY_LIST':
+      if(idx !== -1){
       return {
         myListItems: [...myListItems.slice(0, idx), ...myListItems.slice(idx + 1)],
       };
+    }
     default:
       return state.myListItems;
   }

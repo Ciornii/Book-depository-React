@@ -33,9 +33,11 @@ const updateWishList = (state, action) => {
         };
       }
     case 'BOOK_REMOVED_FROM_WISH_LIST':
+      if(idx !== -1){
       return {
         wishListItems: [...wishListItems.slice(0, idx), ...wishListItems.slice(idx + 1)],
       };
+    }
     default:
       return state.wishListItems;
   }
