@@ -8,8 +8,6 @@ const BookListItem = ({ book, onAddedToMyList, onAddedToWishList, myListItems, w
   const [itemFromMyList, setItemFromMyList] = useState(false);
   const [itemFromWishList, setItemFromWishList] = useState(false);
 
-  console.log(wishListItems);
-
   useEffect(() => {
     if (myListItems.some(e => e.id === id)) {
       setItemFromMyList(true);
@@ -21,7 +19,7 @@ const BookListItem = ({ book, onAddedToMyList, onAddedToWishList, myListItems, w
     } else {
       setItemFromWishList(false);
     }
-  }, [myListItems, wishListItems],);
+  }, [myListItems, wishListItems]);
 
   return (
     <>
