@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import BookListItem from '../book-list-item';
 import { withBookstoreService } from '../hoc';
@@ -12,7 +12,7 @@ import {
 import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import _filter from 'lodash/filter';
+import { lowerCaseTrim } from '../../utils';
 
 import './book-list.scss';
 
@@ -61,17 +61,11 @@ const BookListContainer = ({
     fetchBooks();
   });
 
-  console.log('cat', activeCategory);
-  console.log('author', activeAuthor);
-
   useEffect(() => {
     if (activeCategory) {
       setFilteredBooks(
         books.filter(item =>
-          item.category
-            .toLowerCase()
-            .replace(/\s/g, '')
-            .includes(activeCategory),
+          lowerCaseTrim(item.category).includes(activeCategory),
         ),
       );
       setActiveAuthor('');
@@ -82,10 +76,7 @@ const BookListContainer = ({
     if (activeAuthor) {
       setFilteredBooks(
         books.filter(item =>
-          item.author
-            .toLowerCase()
-            .replace(/\s/g, '')
-            .includes(activeAuthor),
+          lowerCaseTrim(item.author).includes(activeAuthor),
         ),
       );
       setActiveCategory('');
