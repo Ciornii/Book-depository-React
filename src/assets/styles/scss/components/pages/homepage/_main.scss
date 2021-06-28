@@ -19,25 +19,24 @@
         padding: 16px 30px 30px;
 
         li {
-          a {
-            position: relative;
-            @include font-size(15px);
-            display: inline-block;
-            padding: 9px 0;
-            color: $black;
-            transition: all 0.2s ease;
+          position: relative;
+          @include font-size(15px);
+          display: block;
+          padding: 9px 0;
+          color: $black;
+          transition: all 0.2s ease;
+          cursor: pointer;
 
-            &:hover,
-            &.active {
-              &:before {
-                content: "";
-                display: block;
-                width: 12px;
-                height: 4px;
-                background-color: $red;
-                @include align-center(vertical);
-                left: -17px;
-              }
+          &:hover,
+          &.active {
+            &:before {
+              content: "";
+              display: block;
+              width: 12px;
+              height: 4px;
+              background-color: $red;
+              @include align-center(vertical);
+              left: -17px;
             }
           }
         }

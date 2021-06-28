@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BookList from '../book-list';
-import MyListPage from './my-list-page';
 import Sorting from '../Sorting';
 
+const categories = [
+  'Biographies',
+  'Business',
+  'Financial education',
+  'Literature',
+  'Personal development',
+  'Time management',
+];
+
+const authors = [
+  'Bodo Schaefer',
+  'Brian Tracy',
+  'Dale Carnegie',
+  'Hal Elrod',
+  'John Kehoe',
+  'Napoleon Hill',
+  'Robert Kiyosaki',
+  'Robin Sharma',
+  'Stephen Covey',
+  'Anthony Robbins',
+];
+
 const CatalogPage = () => {
+  const [activeCategory, setActiveCategory] = useState('');
+  const [activeAuthor, setActiveAuthor] = useState('');
+
+  // ! implement with ref
+
   return (
     <>
       <section className='products'>
@@ -13,66 +39,34 @@ const CatalogPage = () => {
               <div className='products__categories'>
                 <h2>Categories</h2>
                 <ul>
-                  <li>
-                    <a href='#'>Biographies</a>
-                  </li>
-                  <li>
-                    <a href='#'>Business</a>
-                  </li>
-                  <li>
-                    <a href='#'>Financial education</a>
-                  </li>
-                  <li>
-                    <a href='#'>Literature</a>
-                  </li>
-                  <li>
-                    <a href='#'>Personal development</a>
-                  </li>
-                  <li>
-                    <a href='#'>Time management</a>
-                  </li>
+                  {categories.map((elem, idx) => (
+                    <li
+                      key={idx}
+                      onClick={() => setActiveCategory(elem.toLowerCase().replace(/\s/g, ''))}
+                    >
+                      {elem}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className='products__authors'>
                 <h2>Authors</h2>
                 <ul>
-                  <li>
-                    <a href='#'>Bodo Schaefer</a>
-                  </li>
-                  <li>
-                    <a href='#'>Brian Tracy</a>
-                  </li>
-                  <li>
-                    <a href='#'>Dale Carnegie</a>
-                  </li>
-                  <li>
-                    <a href='#'>Hal Elrod</a>
-                  </li>
-                  <li>
-                    <a href='#'>John Kehoe</a>
-                  </li>
-                  <li>
-                    <a href='#'>Napoleon Hill</a>
-                  </li>
-                  <li>
-                    <a href='#'>Robert Kiyosaki</a>
-                  </li>
-                  <li>
-                    <a href='#'>Robin Sharma</a>
-                  </li>
-                  <li>
-                    <a href='#'>Stephen Covey</a>
-                  </li>
-                  <li>
-                    <a href='#'>Anthony Robbins</a>
-                  </li>
+                  {authors.map((elem, idx) => (
+                    <li
+                      key={idx}
+                      onClick={() => setActiveAuthor(elem.toLowerCase().replace(/\s/g, ''))}
+                    >
+                      {elem}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
             <div className='products__results'>
               <div className='products__settings'>
-                <Sorting/>
+                <Sorting />
                 <div className='products__views'>
                   <div className='products__view products__view--active'>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 276.167 276.167'>
@@ -134,7 +128,12 @@ const CatalogPage = () => {
                   </div>
                 </div>
               </div>
-              <BookList />
+              <BookList
+                activeCategory={activeCategory}
+                activeAuthor={activeAuthor}
+                setActiveCategory={setActiveCategory}
+                setActiveAuthor={setActiveAuthor}
+              />
               <button className='btn load-more' id='loadMore'>
                 Load more
               </button>
