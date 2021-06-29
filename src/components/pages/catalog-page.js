@@ -30,9 +30,9 @@ const authors = [
 ];
 
 const CatalogPage = ({ books }) => {
+  const [filteredBooks, setFilteredBooks] = useState(books);
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
-  const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
     fetchBooks();
@@ -52,7 +52,7 @@ const CatalogPage = ({ books }) => {
     }
   }, [activeAuthor]);
 
-  // ! implement with ref
+  // ! to implement with ref
 
   return (
     <>
