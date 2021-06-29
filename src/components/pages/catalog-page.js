@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import BookList from '../book-list';
-import Sorting from '../Sorting';
 import { lowerCaseTrim } from '../../utils';
 import Svg from '../svg';
 
@@ -46,8 +45,7 @@ const CatalogPage = () => {
                       key={idx}
                       onClick={() => setActiveCategory(lowerCaseTrim(elem))}
                       className={
-                        lowerCaseTrim(activeCategory) ==
-                          lowerCaseTrim(elem) ? 'active' : ''
+                        lowerCaseTrim(activeCategory) == lowerCaseTrim(elem) ? 'active' : ''
                       }
                     >
                       {elem}
@@ -62,10 +60,7 @@ const CatalogPage = () => {
                     <li
                       key={idx}
                       onClick={() => setActiveAuthor(lowerCaseTrim(elem))}
-                      className={
-                        lowerCaseTrim(activeAuthor) ==
-                          lowerCaseTrim(elem) ? 'active' : ''
-                      }
+                      className={lowerCaseTrim(activeAuthor) == lowerCaseTrim(elem) ? 'active' : ''}
                     >
                       {elem}
                     </li>
@@ -76,7 +71,26 @@ const CatalogPage = () => {
 
             <div className='products__results'>
               <div className='products__settings'>
-                <Sorting />
+                <div className='products__sorting'>
+                  <form method='get' action=''>
+                    Sort by:
+                    <select>
+                      <option value='default' defaultValue disabled>
+                        Default
+                      </option>
+                      <option value='a-z'>Name (A-Z)</option>
+                      <option value='z-a'>Name (Z-A)</option>
+                    </select>
+                  </form>
+                  <form method='get' action=''>
+                    <select>
+                      <option value='6' defaultValue>
+                        6
+                      </option>
+                      <option value='12'>12</option>
+                    </select>
+                  </form>
+                </div>
                 <div className='products__views'>
                   <div className='products__view products__view--active'>
                     <Svg name='grid-view' />
