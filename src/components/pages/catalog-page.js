@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import BookList from '../book-list';
 import { lowerCaseTrim } from '../../utils';
 import Svg from '../svg';
+import { withBookstoreService } from '../hoc';
+import { fetchBooks } from '../../actions';
+import { compose } from '../../utils';
 
 const categories = [
   'Biographies',
@@ -25,9 +29,28 @@ const authors = [
   'Anthony Robbins',
 ];
 
-const CatalogPage = () => {
+const CatalogPage = ({ books }) => {
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState(books);
+
+  useEffect(() => {
+    fetchBooks();
+  });
+
+  useEffect(() => {
+    if (activeCategory) {
+      setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
+      setActiveAuthor('');
+    }
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (activeAuthor) {
+      setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
+      setActiveCategory('');
+    }
+  }, [activeAuthor]);
 
   // ! implement with ref
 
@@ -100,12 +123,7 @@ const CatalogPage = () => {
                   </div>
                 </div>
               </div>
-              <BookList
-                activeCategory={activeCategory}
-                activeAuthor={activeAuthor}
-                setActiveCategory={setActiveCategory}
-                setActiveAuthor={setActiveAuthor}
-              />
+              <BookList books={filteredBooks} />
               <button className='btn load-more' id='loadMore'>
                 Load more
               </button>
@@ -117,4 +135,23 @@ const CatalogPage = () => {
   );
 };
 
-export default CatalogPage;
+const mapStateToProps = ({ bookList: { books, loading, error } }) => {
+  return { books, loading, error };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { bookstoreService } = ownProps;
+  return {
+    fetchBooks: fetchBooks(bookstoreService, dispatch),
+  };
+};
+
+export default compose(
+  withBookstoreService(),
+  connect(mapStateToProps, mapDispatchToProps),
+)(CatalogPage);
+
+// Without compose:
+// export default withBookstoreService()(
+//   connect(mapStateToProps, mapDispatchToProps)(CatalogPage)
+// );

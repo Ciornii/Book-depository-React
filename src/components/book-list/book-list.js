@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import BookListItem from '../book-list-item';
-import { withBookstoreService } from '../hoc';
 import {
-  fetchBooks,
   bookAddedToMyList,
   bookAddedToWishList,
   bookRemovedFromWishList,
   bookRemovedFromMyList,
 } from '../../actions';
-import { compose } from '../../utils';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import { lowerCaseTrim } from '../../utils';
 
 import './book-list.scss';
 
@@ -50,39 +46,7 @@ const BookListContainer = ({
   onAddedToWishList,
   onDeleteFromMyList,
   onDeleteFromWishList,
-  activeCategory,
-  activeAuthor,
-  setActiveAuthor,
-  setActiveCategory,
 }) => {
-  const [filteredBooks, setFilteredBooks] = useState(books);
-
-  useEffect(() => {
-    fetchBooks();
-  });
-
-  useEffect(() => {
-    if (activeCategory) {
-      setFilteredBooks(
-        books.filter(item =>
-          lowerCaseTrim(item.category).includes(activeCategory),
-        ),
-      );
-      setActiveAuthor('');
-    }
-  }, [activeCategory]);
-
-  useEffect(() => {
-    if (activeAuthor) {
-      setFilteredBooks(
-        books.filter(item =>
-          lowerCaseTrim(item.author).includes(activeAuthor),
-        ),
-      );
-      setActiveCategory('');
-    }
-  }, [activeAuthor]);
-
   if (loading) {
     return <Spinner />;
   }
@@ -93,7 +57,7 @@ const BookListContainer = ({
 
   return (
     <BookList
-      books={filteredBooks}
+      books={books}
       onAddedToMyList={onAddedToMyList}
       onAddedToWishList={onAddedToWishList}
       onDeleteFromMyList={onDeleteFromMyList}
@@ -102,14 +66,8 @@ const BookListContainer = ({
   );
 };
 
-const mapStateToProps = ({ bookList: { books, loading, error } }) => {
-  return { books, loading, error };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const { bookstoreService } = ownProps;
+const mapDispatchToProps = dispatch => {
   return {
-    fetchBooks: fetchBooks(bookstoreService, dispatch),
     onAddedToMyList: id => {
       dispatch(bookAddedToMyList(id));
       dispatch(bookRemovedFromWishList(id));
@@ -123,12 +81,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default compose(
-  withBookstoreService(),
-  connect(mapStateToProps, mapDispatchToProps),
-)(BookListContainer);
-
-// Without compose:
-// export default withBookstoreService()(
-//   connect(mapStateToProps, mapDispatchToProps)(BookListContainer)
-// );
+export default connect(null, mapDispatchToProps)(BookListContainer);
