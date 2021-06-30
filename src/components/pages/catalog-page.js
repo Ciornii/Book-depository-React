@@ -40,54 +40,29 @@ const CatalogPage = ({ books }) => {
     fetchBooks();
   });
 
-  // useEffect(() => {
-  //   if (activeCategory) {
-  //     setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
-  //     setActiveAuthor('');
-  //   }
-  // }, [activeCategory]);
-
-  // useEffect(() => {
-  //   if (activeAuthor) {
-  //     setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
-  //     setActiveCategory('');
-  //   }
-  // }, [activeAuthor]);
+  useEffect(() => {
+    if (activeCategory) {
+      setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
+      setActiveAuthor('');
+    }
+  }, [activeCategory]);
 
   useEffect(() => {
-    let filteredByCat = {};
-    let filteredByAuthor = {};
-
-    if (activeCategory) {
-      filteredByCat = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
-      setActiveAuthor('');
-
-      if (sortBy) {
-        if (sortBy == 'a-z') {
-          setFilteredBooks(_.orderBy(filteredByCat, ['title'], ['asc']));
-        } else if (sortBy == 'z-a') {
-          setFilteredBooks(_.orderBy(filteredByCat, ['title'], ['desc']));
-        }
-      } else {
-        setFilteredBooks(filteredByCat);
-      }
-    }
-
     if (activeAuthor) {
-      filteredByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
+      setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
       setActiveCategory('');
+    }
+  }, [activeAuthor]);
 
-      if (sortBy) {
-        if (sortBy == 'a-z') {
-          setFilteredBooks(_.orderBy(filteredByAuthor, ['title'], ['asc']));
-        } else if (sortBy == 'z-a') {
-          setFilteredBooks(_.orderBy(filteredByAuthor, ['title'], ['desc']));
-        }
-      } else {
-        setFilteredBooks(filteredByAuthor);
+  useEffect(() => {
+    if (sortBy) {
+      if (sortBy == 'a-z') {
+        setFilteredBooks(_.orderBy(filteredBooks, ['title'], ['asc']));
+      } else if (sortBy == 'z-a') {
+        setFilteredBooks(_.orderBy(filteredBooks, ['title'], ['desc']));
       }
     }
-  }, [activeCategory, activeAuthor, sortBy]);
+  }, [sortBy]);
 
   // ! to implement with ref
 
