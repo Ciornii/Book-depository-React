@@ -38,7 +38,7 @@ const CatalogPage = ({ books }) => {
 
   useEffect(() => {
     fetchBooks();
-  });
+  }, []);
 
   useEffect(() => {
     if (activeCategory) {
