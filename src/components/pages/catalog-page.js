@@ -6,6 +6,7 @@ import Svg from '../svg';
 import { withBookstoreService } from '../hoc';
 import { fetchBooks } from '../../actions';
 import { compose } from '../../utils';
+import _ from 'lodash';
 
 const categories = [
   'Biographies',
@@ -33,24 +34,60 @@ const CatalogPage = ({ books }) => {
   const [filteredBooks, setFilteredBooks] = useState(books);
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
     fetchBooks();
   });
 
-  useEffect(() => {
-    if (activeCategory) {
-      setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
-      setActiveAuthor('');
-    }
-  }, [activeCategory]);
+  // useEffect(() => {
+  //   if (activeCategory) {
+  //     setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
+  //     setActiveAuthor('');
+  //   }
+  // }, [activeCategory]);
+
+  // useEffect(() => {
+  //   if (activeAuthor) {
+  //     setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
+  //     setActiveCategory('');
+  //   }
+  // }, [activeAuthor]);
 
   useEffect(() => {
-    if (activeAuthor) {
-      setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
-      setActiveCategory('');
+    let filteredByCat = {};
+    let filteredByAuthor = {};
+
+    if (activeCategory) {
+      filteredByCat = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
+      setActiveAuthor('');
+
+      if (sortBy) {
+        if (sortBy == 'a-z') {
+          setFilteredBooks(_.orderBy(filteredByCat, ['title'], ['asc']));
+        } else if (sortBy == 'z-a') {
+          setFilteredBooks(_.orderBy(filteredByCat, ['title'], ['desc']));
+        }
+      } else {
+        setFilteredBooks(filteredByCat);
+      }
     }
-  }, [activeAuthor]);
+
+    if (activeAuthor) {
+      filteredByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
+      setActiveCategory('');
+
+      if (sortBy) {
+        if (sortBy == 'a-z') {
+          setFilteredBooks(_.orderBy(filteredByAuthor, ['title'], ['asc']));
+        } else if (sortBy == 'z-a') {
+          setFilteredBooks(_.orderBy(filteredByAuthor, ['title'], ['desc']));
+        }
+      } else {
+        setFilteredBooks(filteredByAuthor);
+      }
+    }
+  }, [activeCategory, activeAuthor, sortBy]);
 
   // ! to implement with ref
 
@@ -97,8 +134,8 @@ const CatalogPage = ({ books }) => {
                 <div className='products__sorting'>
                   <form method='get' action=''>
                     Sort by:
-                    <select>
-                      <option value='default' defaultValue disabled>
+                    <select onChange={e => setSortBy(e.target.value)}>
+                      <option value='' defaultValue disabled>
                         Default
                       </option>
                       <option value='a-z'>Name (A-Z)</option>
