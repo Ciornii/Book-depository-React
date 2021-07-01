@@ -42,14 +42,28 @@ const CatalogPage = ({ books }) => {
 
   useEffect(() => {
     if (activeCategory) {
-      setFilteredBooks(books.filter(item => lowerCaseTrim(item.category).includes(activeCategory)));
+      const filterdByCategory = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
+      if (sortBy == 'a-z') {
+        setFilteredBooks(_.orderBy(filterdByCategory, ['title'], ['asc']));
+      } else if (sortBy == 'z-a') {
+        setFilteredBooks(_.orderBy(filterdByCategory, ['title'], ['desc']));
+      } else {
+        setFilteredBooks(filterdByCategory);
+      }
       setActiveAuthor('');
     }
   }, [activeCategory]);
 
   useEffect(() => {
     if (activeAuthor) {
-      setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
+      const filterdByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
+      if (sortBy == 'a-z') {
+        setFilteredBooks(_.orderBy(filterdByAuthor, ['title'], ['asc']));
+      } else if (sortBy == 'z-a') {
+        setFilteredBooks(_.orderBy(filterdByAuthor, ['title'], ['desc']));
+      } else {
+        setFilteredBooks(filterdByAuthor);
+      }
       setActiveCategory('');
     }
   }, [activeAuthor]);
@@ -60,6 +74,8 @@ const CatalogPage = ({ books }) => {
         setFilteredBooks(_.orderBy(filteredBooks, ['title'], ['asc']));
       } else if (sortBy == 'z-a') {
         setFilteredBooks(_.orderBy(filteredBooks, ['title'], ['desc']));
+      } else {
+        setFilteredBooks(books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor)));
       }
     }
   }, [sortBy]);
