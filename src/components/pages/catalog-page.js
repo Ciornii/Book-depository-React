@@ -35,6 +35,7 @@ const CatalogPage = ({ books }) => {
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
   const [sortBy, setSortBy] = useState('');
+  const [visible, setVisible] = useState(6);
 
   useEffect(() => {
     fetchBooks();
@@ -71,6 +72,11 @@ const CatalogPage = ({ books }) => {
       setResult(filteredBooks);
     }
   }
+
+  const showMoreBooks = () => {
+    setVisible((prevValue) => prevValue + 6);
+  }
+
 
   // ! to implement with ref
 
@@ -143,8 +149,8 @@ const CatalogPage = ({ books }) => {
                   </div>
                 </div>
               </div>
-              <BookList books={result} />
-              <button className='btn load-more' id='loadMore'>
+              <BookList books={result} visible={visible} />
+              <button className='btn load-more' onClick={showMoreBooks}>
                 Load more
               </button>
             </div>

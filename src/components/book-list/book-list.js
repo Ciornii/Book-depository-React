@@ -12,16 +12,29 @@ import ErrorIndicator from '../error-indicator';
 
 import './book-list.scss';
 
-const BookList = ({
+
+const BookListContainer = ({
   books,
+  loading,
+  error,
   onAddedToMyList,
   onAddedToWishList,
   onDeleteFromMyList,
   onDeleteFromWishList,
+  visible
 }) => {
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <ErrorIndicator />;
+  }
+
   return (
     <ul className='products__cards'>
-      {books.map(book => {
+      {books.slice(0, visible).map(book => {
         return (
           <li key={book.id} className='product__card'>
             <BookListItem
@@ -35,34 +48,6 @@ const BookList = ({
         );
       })}
     </ul>
-  );
-};
-
-const BookListContainer = ({
-  books,
-  loading,
-  error,
-  onAddedToMyList,
-  onAddedToWishList,
-  onDeleteFromMyList,
-  onDeleteFromWishList,
-}) => {
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return <ErrorIndicator />;
-  }
-
-  return (
-    <BookList
-      books={books}
-      onAddedToMyList={onAddedToMyList}
-      onAddedToWishList={onAddedToWishList}
-      onDeleteFromMyList={onDeleteFromMyList}
-      onDeleteFromWishList={onDeleteFromWishList}
-    />
   );
 };
 
