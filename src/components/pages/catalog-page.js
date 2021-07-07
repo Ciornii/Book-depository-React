@@ -36,16 +36,26 @@ const CatalogPage = ({ books }) => {
   const [activeAuthor, setActiveAuthor] = useState('');
   const [sortBy, setSortBy] = useState('');
   const [visible, setVisible] = useState(6);
+  const [loadMoreBtn, setLoadMoreBtn] = useState(false);
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
   useEffect(() => {
+    if (visible < result.length) {
+      setLoadMoreBtn(true);
+    } else {
+      setLoadMoreBtn(false);
+    }
+  }, [result, visible]);
+
+  useEffect(() => {
     if (activeCategory) {
       const filteredByCategory = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
       sorting(filteredByCategory);
       setActiveAuthor('');
+      setVisible(6);
     }
   }, [activeCategory]);
 
@@ -54,6 +64,7 @@ const CatalogPage = ({ books }) => {
       const filterdByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
       sorting(filterdByAuthor);
       setActiveCategory('');
+      setVisible(6);
     }
   }, [activeAuthor]);
 
@@ -74,7 +85,11 @@ const CatalogPage = ({ books }) => {
   }
 
   const showMoreBooks = () => {
-    setVisible((prevValue) => prevValue + 6);
+    if (visible < result.length) {
+      setVisible((prevValue) => prevValue + 6);
+    } else {
+      setLoadMoreBtn(false);
+    }
   }
 
 
@@ -150,7 +165,7 @@ const CatalogPage = ({ books }) => {
                 </div>
               </div>
               <BookList books={result} visible={visible} />
-              <button className='btn load-more' onClick={showMoreBooks}>
+              <button className={`btn load-more ${!loadMoreBtn ? 'hide' : ''}`} onClick={showMoreBooks}>
                 Load more
               </button>
             </div>
