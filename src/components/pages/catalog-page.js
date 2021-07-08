@@ -35,12 +35,17 @@ const CatalogPage = ({ books }) => {
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
   const [sortBy, setSortBy] = useState('');
-  const [visible, setVisible] = useState(6);
+  const [perPage, setPerPage] = useState(6);
+  const [visible, setVisible] = useState(perPage);
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
 
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  useEffect(() => {
+    setVisible(perPage);
+  }, [perPage]);
 
   useEffect(() => {
     if (visible < result.length) {
@@ -55,7 +60,7 @@ const CatalogPage = ({ books }) => {
       const filteredByCategory = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
       sorting(filteredByCategory);
       setActiveAuthor('');
-      setVisible(6);
+      setVisible(perPage);
     }
   }, [activeCategory]);
 
@@ -64,7 +69,7 @@ const CatalogPage = ({ books }) => {
       const filterdByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
       sorting(filterdByAuthor);
       setActiveCategory('');
-      setVisible(6);
+      setVisible(perPage);
     }
   }, [activeAuthor]);
 
@@ -86,7 +91,7 @@ const CatalogPage = ({ books }) => {
 
   const showMoreBooks = () => {
     if (visible < result.length) {
-      setVisible((prevValue) => prevValue + 6);
+      setVisible((prevValue) => prevValue + perPage);
     } else {
       setLoadMoreBtn(false);
     }
@@ -147,8 +152,8 @@ const CatalogPage = ({ books }) => {
                     </select>
                   </form>
                   <form method='get' action=''>
-                    <select>
-                      <option value='6' defaultValue>
+                    <select value={perPage} onChange={(e) => setPerPage(e.target.value)}>
+                      <option value='6'>
                         6
                       </option>
                       <option value='12'>12</option>

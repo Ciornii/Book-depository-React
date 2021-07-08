@@ -26,7 +26,6 @@ const BooksCollection = ({ items, onDelete }) => {
 
   return (
     <>
-      My books:
       <ul>{items.map(renderRow)}</ul>
     </>
   );
