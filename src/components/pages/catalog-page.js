@@ -34,7 +34,7 @@ const CatalogPage = ({ books }) => {
   const [result, setResult] = useState(books);
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
-  const [sortBy, setSortBy] = useState('');
+  const [sortBy, setSortBy] = useState('Default');
   const [perPage, setPerPage] = useState(6);
   const [visible, setVisible] = useState(perPage);
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
@@ -57,7 +57,9 @@ const CatalogPage = ({ books }) => {
 
   useEffect(() => {
     if (activeCategory) {
-      const filteredByCategory = books.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
+      const filteredByCategory = books.filter(item =>
+        lowerCaseTrim(item.category).includes(activeCategory),
+      );
       sorting(filteredByCategory);
       setActiveAuthor('');
       setVisible(perPage);
@@ -66,7 +68,9 @@ const CatalogPage = ({ books }) => {
 
   useEffect(() => {
     if (activeAuthor) {
-      const filterdByAuthor = books.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
+      const filterdByAuthor = books.filter(item =>
+        lowerCaseTrim(item.author).includes(activeAuthor),
+      );
       sorting(filterdByAuthor);
       setActiveCategory('');
       setVisible(perPage);
@@ -79,7 +83,7 @@ const CatalogPage = ({ books }) => {
     }
   }, [sortBy]);
 
-  const sorting = (filteredBooks) => {
+  const sorting = filteredBooks => {
     if (sortBy == 'a-z') {
       setResult(orderBy(filteredBooks, ['title'], ['asc']));
     } else if (sortBy == 'z-a') {
@@ -87,16 +91,15 @@ const CatalogPage = ({ books }) => {
     } else {
       setResult(filteredBooks);
     }
-  }
+  };
 
   const showMoreBooks = () => {
     if (visible < result.length) {
-      setVisible((prevValue) => prevValue + perPage);
+      setVisible(prevValue => prevValue + perPage);
     } else {
       setLoadMoreBtn(false);
     }
-  }
-
+  };
 
   // ! to implement with ref
 
@@ -143,8 +146,8 @@ const CatalogPage = ({ books }) => {
                 <div className='products__sorting'>
                   <form method='get' action=''>
                     Sort by:
-                    <select onChange={e => setSortBy(e.target.value)}>
-                      <option value='' defaultValue disabled>
+                    <select value={sortBy} onChange={e => setSortBy(e.target.value)}>
+                      <option value='Default' defaultValue disabled>
                         Default
                       </option>
                       <option value='a-z'>Name (A-Z)</option>
@@ -152,10 +155,8 @@ const CatalogPage = ({ books }) => {
                     </select>
                   </form>
                   <form method='get' action=''>
-                    <select value={perPage} onChange={(e) => setPerPage(e.target.value)}>
-                      <option value='6'>
-                        6
-                      </option>
+                    <select value={perPage} onChange={e => setPerPage(e.target.value)}>
+                      <option value='6'>6</option>
                       <option value='12'>12</option>
                     </select>
                   </form>
@@ -170,7 +171,10 @@ const CatalogPage = ({ books }) => {
                 </div>
               </div>
               <BookList books={result} visible={visible} />
-              <button className={`btn load-more ${!loadMoreBtn ? 'hide' : ''}`} onClick={showMoreBooks}>
+              <button
+                className={`btn load-more ${!loadMoreBtn ? 'hide' : ''}`}
+                onClick={showMoreBooks}
+              >
                 Load more
               </button>
             </div>
