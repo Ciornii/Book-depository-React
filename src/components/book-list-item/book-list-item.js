@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Svg from '../svg';
 
 import './book-list-item.scss';
 
-const BookListItem = ({ book, onAddedToMyList, onAddedToWishList, myListItems, wishListItems, onDeleteFromMyList,
-  onDeleteFromWishList }) => {
+const BookListItem = ({
+  book,
+  onAddedToMyList,
+  onAddedToWishList,
+  myListItems,
+  wishListItems,
+  onDeleteFromMyList,
+  onDeleteFromWishList,
+}) => {
   const { title, author, description, photo, id } = book;
 
   const [itemFromMyList, setItemFromMyList] = useState(false);
@@ -26,19 +35,19 @@ const BookListItem = ({ book, onAddedToMyList, onAddedToWishList, myListItems, w
 
   const myListClickHandler = () => {
     if (myListItems.some(e => e.id === id)) {
-      onDeleteFromMyList()
+      onDeleteFromMyList();
     } else {
-      onAddedToMyList()
+      onAddedToMyList();
     }
-  }
+  };
 
   const wishListClickHandler = () => {
     if (wishListItems.some(e => e.id === id)) {
-      onDeleteFromWishList()
+      onDeleteFromWishList();
     } else {
-      onAddedToWishList()
+      onAddedToWishList();
     }
-  }
+  };
 
   return (
     <>
@@ -46,24 +55,30 @@ const BookListItem = ({ book, onAddedToMyList, onAddedToWishList, myListItems, w
         <img src={photo} alt={title} />
       </div>
       <div className='product__bottom'>
-        <div className='product__info'>
+        <Link to={`/${id}`} className='product__info'>
           <div className='product__title'>{title}</div>
           <div className='product__author'>by {author}</div>
           <div className='product__description'>{description}</div>
           <div className='product__read-more'>...</div>
-        </div>
+        </Link>
         <div className='product__actions'>
           <a href='#' className='product__link'>
             <Svg name='eye' />
             Quick View
           </a>
           <div className='product__btns'>
-            <button onClick={myListClickHandler} title='My Books' className={itemFromMyList ? 'active' : ''}>
-
+            <button
+              onClick={myListClickHandler}
+              title='My Books'
+              className={itemFromMyList ? 'active' : ''}
+            >
               <Svg name='my-books' />
             </button>
-            <button onClick={wishListClickHandler} title='Wish List' className={itemFromWishList ? 'active' : ''}>
-
+            <button
+              onClick={wishListClickHandler}
+              title='Wish List'
+              className={itemFromWishList ? 'active' : ''}
+            >
               <Svg name='wishlist' />
             </button>
           </div>

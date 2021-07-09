@@ -185,8 +185,8 @@ const CatalogPage = ({ books }) => {
   );
 };
 
-const mapStateToProps = ({ bookList: { books, loading, error } }) => {
-  return { books, loading, error };
+const mapStateToProps = ({ bookList: { books } }) => {
+  return { books };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
