@@ -1,174 +1,115 @@
-.modal__bg {
-  position: fixed;
-  display: none;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-  z-index: 999;
-  @include customScroll();
-
-  .modal {
-    position: fixed;
-    z-index: 4;
-    left: 50%;
-    top: 50%;
-    width: 952px;
-    transform: translate(-50%, -50%);
-    color: $black;
-
-    @media only screen and (max-width: 824px) {
-      width: 85%;
-    }
-
-    .modal__close {
-      position: absolute;
-      right: -20px;
-      top: -35px;
-      cursor: pointer;
-      font-size: 35px;
-      color: #fff;
-      font-weight: 300;
-    }
-
-    .modal__inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      align-content: center;
-      height: 552px;
-      padding: 20px;
-      background-color: white;
-
-      .modal__img img {
-        max-width: 300px;
-      }
-      .modal__content {
-        padding: 20px;
-        margin-left: 20px;
-        height: 100%;
-        overflow-y: scroll;
-
-        .modal__title {
-          h2 {
-            @include font-size(24px);
-            text-transform: initial;
-          }
-        }
-        .modal__author {
-          margin-top: 15px;
-        }
-        .modal__description {
-          height: 352px;
-          margin-top: 30px;
-          text-align: justify;
-
-          &::after {
-            content: "";
-            display: inline-block;
-            width: 100%;
-          }
-
-          p {
-            text-indent: 30px;
-          }
-        }
-      }
-    }
-  }
+.ReactModal__Body--open {
+  overflow: hidden !important;
 }
 
-.modal__list {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: 100%;
+.ReactModal__Overlay {
+  background-color: rgba(55, 55, 55, 0.75) !important;
+  bottom: 0;
+  left: 0;
   overflow-y: scroll;
+  padding-top: 70px;
+  padding-bottom: 112px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+
+  .ReactModal__Content {
+    background-color: #fff;
+    border-radius: 4px;
+    border: none;
+    display: block;
+    height: auto;
+    left: 50%;
+    padding: 4rem;
+    position: relative;
+    transform: translate(-50%);
+    transition: opacity 0.3s ease-in-out;
+  }
 }
 
-.list-item {
-  position: relative;
+.modal {
+  max-width: 90rem;
+  width: 90vw;
+
+  &--large {
+    max-width: 144rem;
+    width: 90vw;
+  }
+
+  &--small {
+    padding: 59px 50px 50px;
+    max-width: 50rem;
+    width: 90vw;
+  }
+
+  &--center {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+.modal__inner {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 96%;
-  height: 100px;
-  padding: 15px 0 25px;
-  margin: 0 3rem 0 1rem;
-  border-bottom: 1px solid $border-color;
-  height: 148px;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  min-height: 552px;
+  padding: 20px;
+  background-color: white;
 
-  &:last-of-type {
-    border: none;
+  .modal__img img {
+    max-width: 300px;
   }
 
-  .list-item__idx {
-    margin-right: 1rem;
-  }
+  .modal__content {
+    padding: 20px;
+    margin-left: 20px;
+    height: 100%;
 
-  .list-item__img {
-    width: 74px;
-    height: 115px;
-    margin-right: 1.5rem;
-
-    img {
-      height: 100%;
-      width: 100%;
-      @include center_block;
-    }
-  }
-
-  .list-item__content {
-    width: 70%;
-
-    .list-item__title {
+    .modal__title {
       h2 {
-        @include font-size(18px);
+        @include font-size(24px);
+        text-transform: initial;
       }
     }
 
-    .list-item__btns {
-      display: flex;
-      margin: 12px 0 7px 0;
+    .modal__author {
+      margin-top: 15px;
+    }
 
-      .btn {
-        margin-top: 0;
-        line-height: 2.5;
-        transition: initial;
+    .modal__description {
+      min-height: 352px;
+      margin-top: 30px;
+      text-align: justify;
+
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 100%;
       }
 
-      .list-item__book {
-        margin-right: 15px;
+      p {
+        text-indent: 30px;
       }
     }
   }
+}
 
-  button.list-item__delete {
-    width: 16px;
-    height: 16px;
-    overflow: hidden;
-    background-color: transparent;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+.modal__close {
+  position: absolute;
+  right: -20px;
+  top: -35px;
+  cursor: pointer;
+  font-size: 35px;
+  color: #fff;
+  font-weight: 300;
 
-    svg {
-      height: 15px;
-      width: 15px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      fill: $icon-color;
-      transition: fill 0.2s ease;
-    }
-
-    &:hover {
-      svg {
-        fill: $dark-grey;
-      }
-    }
+  svg {
+    max-width: 16px;
+    max-height: 16px;
+    fill: white;
   }
 }

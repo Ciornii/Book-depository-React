@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 
 import Svg from '../svg';
 
@@ -19,6 +20,15 @@ const BookListItem = ({
 
   const [itemFromMyList, setItemFromMyList] = useState(false);
   const [itemFromWishList, setItemFromWishList] = useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   useEffect(() => {
     if (myListItems.some(e => e.id === id)) {
@@ -62,10 +72,10 @@ const BookListItem = ({
           <div className='product__read-more'>...</div>
         </Link>
         <div className='product__actions'>
-          <a href='#' className='product__link'>
+          <button className='product__link' onClick={openModal}>
             <Svg name='eye' />
             Quick View
-          </a>
+          </button>
           <div className='product__btns'>
             <button
               onClick={myListClickHandler}
@@ -84,6 +94,30 @@ const BookListItem = ({
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Quick view"
+        className='modal'
+      >
+        <div class="modal__close" onClick={closeModal}><Svg name='close' /></div>
+        <div class="modal__inner">
+          <div className="modal__img">
+            <img src={photo} alt={title} />
+          </div>
+          <div className="modal__content">
+            <div className="modal__title">
+              {title}
+            </div>
+            <div className="modal__author">
+              by {author}
+            </div>
+            <div className="modal__description">
+              {description}
+            </div>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
