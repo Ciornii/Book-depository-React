@@ -13,15 +13,17 @@ const SinglePage = ({ books }) => {
   console.log(book);
 
   return (
-    <div className='container'>
-      <div className='product__img'>
-        <img src={photo} alt={title} />
-      </div>
-      <div className='product__bottom'>
-        <div className='product__info'>
-          <div className='product__title'>{title}</div>
-          <div className='product__author'>by {author}</div>
-          <div className='product__description'>{description}</div>
+    <div className='single-page'>
+      <div className='container'>
+        <div className='product__img'>
+          <img src={photo} alt={title} />
+        </div>
+        <div className='product__bottom'>
+          <div className='product__info'>
+            <div className='product__title'>{title}</div>
+            <div className='product__author'>by {author}</div>
+            <div className='product__description'>{description}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { lowerCaseTrim } from '../../../utils';
+
 import MyListDropdown from '../../dropdown-list/my-list-dropdown';
 import WishListDropdown from '../../dropdown-list/wish-list-dropdown';
 import Svg from '../../svg';
@@ -20,9 +24,11 @@ const useClickOutside = (handler, domNode) => {
   });
 };
 
-const Header = ({ myListItems, wishListItems }) => {
+const Header = ({ myListItems, wishListItems, books }) => {
   const [myListDropdown, setMyListDropdown] = useState(false);
   const [wishListDropdown, setWishListDropdown] = useState(false);
+  const [search, setSearch] = useState('');
+  const [autocomplete, setAutocomplete] = useState([]);
 
   const myListRef = useRef();
   const wishListRef = useRef();
@@ -34,6 +40,17 @@ const Header = ({ myListItems, wishListItems }) => {
   useClickOutside(() => {
     setWishListDropdown(false);
   }, wishListRef);
+
+  useEffect(() => {
+    if (search && search !== '') {
+      setAutocomplete(books.filter(item =>
+        lowerCaseTrim(item.title).includes(search) || lowerCaseTrim(item.author).includes(search)
+      ))
+    } else {
+      setAutocomplete([]);
+    }
+  }, [search])
+
 
   return (
     <header className='header-global' id='up'>
@@ -52,9 +69,24 @@ const Header = ({ myListItems, wishListItems }) => {
                 id='searchBar'
                 placeholder='Search a book...'
                 autoComplete='off'
+                onChange={(e) => setSearch(lowerCaseTrim(e.target.value))}
               />
               <div className='navbar__icon'>
                 <Svg name='navbar-icon' />
+              </div>
+              <div
+                className={`autocomplete ${autocomplete.length > 0 ? 'active' : ''}`}>
+                <ul>
+                  {autocomplete.map((book, idx) => {
+                    return (
+                      <li key={idx}>
+                        <Link to={`/${book.id}`} onClick={() => setSearch('')}>
+                          {book.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
             <div className='navbar__btns'>
@@ -100,10 +132,11 @@ const Header = ({ myListItems, wishListItems }) => {
   );
 };
 
-const mapStateToProps = ({ myListItems: { myListItems }, wishListItems: { wishListItems } }) => {
+const mapStateToProps = ({ bookList: { books }, myListItems: { myListItems }, wishListItems: { wishListItems } }) => {
   return {
-    myListItems: myListItems,
-    wishListItems: wishListItems,
+    books,
+    myListItems,
+    wishListItems
   };
 };
 
