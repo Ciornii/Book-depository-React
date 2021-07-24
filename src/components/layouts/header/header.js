@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { lowerCaseTrim } from '../../../utils';
 
@@ -27,11 +27,13 @@ const useClickOutside = (handler, domNode) => {
 const Header = ({ myListItems, wishListItems, books }) => {
   const [myListDropdown, setMyListDropdown] = useState(false);
   const [wishListDropdown, setWishListDropdown] = useState(false);
-  const [search, setSearch] = useState('');
+  const [term, setTerm] = useState('');
   const [autocomplete, setAutocomplete] = useState([]);
 
   const myListRef = useRef();
   const wishListRef = useRef();
+
+  let history = useHistory();
 
   useClickOutside(() => {
     setMyListDropdown(false);
@@ -42,14 +44,24 @@ const Header = ({ myListItems, wishListItems, books }) => {
   }, wishListRef);
 
   useEffect(() => {
-    if (search && search !== '') {
+    if (term && term !== '') {
       setAutocomplete(books.filter(item =>
-        lowerCaseTrim(item.title).includes(search) || lowerCaseTrim(item.author).includes(search)
+        lowerCaseTrim(item.title).includes(term) || lowerCaseTrim(item.author).includes(term)
       ))
     } else {
       setAutocomplete([]);
     }
-  }, [search])
+  }, [term])
+
+
+  const submit = (term) => {
+
+    const urlEncodedTerm = encodeURI(term);
+    history.push(
+      `/search-results?${urlEncodedTerm}`
+    );
+  }
+
 
 
   return (
@@ -58,9 +70,9 @@ const Header = ({ myListItems, wishListItems, books }) => {
         <div className='container'>
           <div className='navbar__inner'>
             <div className='navbar__logo'>
-              <a href='/'>
+              <Link to='/'>
                 <img src='./assets/img/logo/logo-white.png' alt='logo' />
-              </a>
+              </Link>
             </div>
             <div className='navbar__search'>
               <input
@@ -69,20 +81,22 @@ const Header = ({ myListItems, wishListItems, books }) => {
                 id='searchBar'
                 placeholder='Search a book...'
                 autoComplete='off'
-                onChange={(e) => setSearch(lowerCaseTrim(e.target.value))}
+                onChange={(e) => setTerm(lowerCaseTrim(e.target.value))}
               />
-              <div className='navbar__icon'>
+              <button className='navbar__icon' onClick={() => submit(term)}>
                 <Svg name='navbar-icon' />
-              </div>
+              </button>
               <div
                 className={`autocomplete ${autocomplete.length > 0 ? 'active' : ''}`}>
                 <ul>
                   {autocomplete.map((book, idx) => {
                     return (
                       <li key={idx}>
-                        <Link to={`/${book.id}`} onClick={() => setSearch('')}>
+                        <Link to={`/${book.id}`} onClick={() => setTerm('')}>
                           {book.title}
                         </Link>
+                        <br />
+                        -
                       </li>
                     );
                   })}
