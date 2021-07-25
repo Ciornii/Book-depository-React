@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bookRemovedFromMyList } from '../../actions';
+import { bookRemovedFromWishList } from '../../actions';
 import BooksCollection from '../books-collection';
 
 const WishListPage = ({ items, onDelete }) => {
@@ -14,7 +14,7 @@ const mapStateToProps = ({ wishListItems: { wishListItems } }) => {
 };
 
 const mapDispatchToProps = {
-  onDelete: bookRemovedFromMyList,
+  onDelete: bookRemovedFromWishList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WishListPage);
