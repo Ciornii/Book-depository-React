@@ -3,8 +3,9 @@ import React from 'react';
 const SearchResults = ({ items }) => {
   return (
     <p>search results</p>
-    // <>
-    //   <ul>
+
+    //    <div className="container">
+    //   <ul className='books-list'>
     //     {items.map((item, idx) => {
     //       const { id, photo, title, author } = item;
 
@@ -24,7 +25,8 @@ const SearchResults = ({ items }) => {
     //       );
     //     })}
     //   </ul>
-    // </>
+    // </div >
+
   );
 };
 

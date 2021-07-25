@@ -3,10 +3,10 @@ import React from 'react';
 const BooksCollection = ({ items, onDelete }) => {
 
   return (
-    <>
-      <ul>
+    <div className="container">
+      <ul className='books-list'>
         {items.map((item, idx) => {
-          const { id, photo, title, author, bookLink, summaryLink } = item;
+          const { id, photo, title, author } = item;
 
           return (
             <li key={id} className='list-item'>
@@ -27,7 +27,7 @@ const BooksCollection = ({ items, onDelete }) => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 export default BooksCollection;
