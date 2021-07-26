@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { lowerCaseTrim } from '../../../utils';
 
@@ -33,8 +33,6 @@ const Header = ({ myListItems, wishListItems, books }) => {
   const myListRef = useRef();
   const wishListRef = useRef();
 
-  let history = useHistory();
-
   useClickOutside(() => {
     setMyListDropdown(false);
   }, myListRef);
@@ -52,16 +50,6 @@ const Header = ({ myListItems, wishListItems, books }) => {
       setAutocomplete([]);
     }
   }, [term])
-
-
-  const submit = (term) => {
-
-    const urlEncodedTerm = encodeURI(term);
-    history.push(
-      `/search-results?${urlEncodedTerm}`
-    );
-  }
-
 
 
   return (
@@ -83,7 +71,7 @@ const Header = ({ myListItems, wishListItems, books }) => {
                 autoComplete='off'
                 onChange={(e) => setTerm(lowerCaseTrim(e.target.value))}
               />
-              <button className='navbar__icon' onClick={() => submit(term)}>
+              <button className='navbar__icon'>
                 <Svg name='navbar-icon' />
               </button>
               <div
@@ -142,7 +130,7 @@ const Header = ({ myListItems, wishListItems, books }) => {
           </div>
         </div>
       </nav>
-    </header>
+    </header >
   );
 };
 
