@@ -16,6 +16,7 @@ const App = () => {
           <Route path='/' component={CatalogPage} exact />
           <Route path='/my-list' component={MyListPage} />
           <Route path='/wish-list' component={WishListPage} />
+          <Route path='/search-results' component={SearchResults} />
           <Route path='/:id' children={<SinglePage />} />
         </Switch>
         <Quotes />

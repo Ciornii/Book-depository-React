@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
+import { termAdded } from '../../../actions';
 import { lowerCaseTrim } from '../../../utils';
 
 import MyListDropdown from '../../dropdown-list/my-list-dropdown';
@@ -24,7 +25,7 @@ const useClickOutside = (handler, domNode) => {
   });
 };
 
-const Header = ({ myListItems, wishListItems, books }) => {
+const Header = ({ myListItems, wishListItems, books, addTerm }) => {
   const [myListDropdown, setMyListDropdown] = useState(false);
   const [wishListDropdown, setWishListDropdown] = useState(false);
   const [term, setTerm] = useState('');
@@ -32,6 +33,8 @@ const Header = ({ myListItems, wishListItems, books }) => {
 
   const myListRef = useRef();
   const wishListRef = useRef();
+
+  let history = useHistory();
 
   useClickOutside(() => {
     setMyListDropdown(false);
@@ -43,14 +46,23 @@ const Header = ({ myListItems, wishListItems, books }) => {
 
   useEffect(() => {
     if (term && term !== '') {
-      setAutocomplete(books.filter(item =>
-        lowerCaseTrim(item.title).includes(term) || lowerCaseTrim(item.author).includes(term)
-      ))
+      setAutocomplete(
+        books.filter(
+          item =>
+            lowerCaseTrim(item.title).includes(term) || lowerCaseTrim(item.author).includes(term),
+        ),
+      );
     } else {
       setAutocomplete([]);
     }
-  }, [term])
+  }, [term]);
 
+  const submit = term => {
+    addTerm(term);
+    const urlEncodedTerm = encodeURI(term);
+    history.push(`/search-results?${urlEncodedTerm}`);
+    setTerm('');
+  };
 
   return (
     <header className='header-global' id='up'>
@@ -69,13 +81,13 @@ const Header = ({ myListItems, wishListItems, books }) => {
                 id='searchBar'
                 placeholder='Search a book...'
                 autoComplete='off'
-                onChange={(e) => setTerm(lowerCaseTrim(e.target.value))}
+                value={term}
+                onChange={e => setTerm(lowerCaseTrim(e.target.value))}
               />
-              <button className='navbar__icon'>
+              <button className='navbar__icon' onClick={() => submit(term)}>
                 <Svg name='navbar-icon' />
               </button>
-              <div
-                className={`autocomplete ${autocomplete.length > 0 ? 'active' : ''}`}>
+              <div className={`autocomplete ${autocomplete.length > 0 ? 'active' : ''}`}>
                 <ul>
                   {autocomplete.map((book, idx) => {
                     return (
@@ -83,8 +95,7 @@ const Header = ({ myListItems, wishListItems, books }) => {
                         <Link to={`/${book.id}`} onClick={() => setTerm('')}>
                           {book.title}
                         </Link>
-                        <br />
-                        -
+                        <br />-
                       </li>
                     );
                   })}
@@ -130,16 +141,24 @@ const Header = ({ myListItems, wishListItems, books }) => {
           </div>
         </div>
       </nav>
-    </header >
+    </header>
   );
 };
 
-const mapStateToProps = ({ bookList: { books }, myListItems: { myListItems }, wishListItems: { wishListItems } }) => {
+const mapStateToProps = ({
+  bookList: { books },
+  myListItems: { myListItems },
+  wishListItems: { wishListItems },
+}) => {
   return {
     books,
     myListItems,
-    wishListItems
+    wishListItems,
   };
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  addTerm: termAdded,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

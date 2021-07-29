@@ -46,6 +46,13 @@ export const bookRemovedFromWishList = bookId => {
   };
 };
 
+export const termAdded = searchTerm => {
+  return {
+    type: 'TERM_ADDED',
+    payload: searchTerm,
+  };
+};
+
 const fetchBooks = (bookstoreService, dispatch) => () => {
   dispatch(booksRequested());
   bookstoreService
