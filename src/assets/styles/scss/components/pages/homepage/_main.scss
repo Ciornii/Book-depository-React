@@ -58,14 +58,17 @@
         .products__sorting {
           display: inline;
 
-          select {
+          form {
             display: inline-block;
             margin-right: 2rem;
-            height: 40px;
-            border: none;
-            outline: none;
-            border-bottom: 1px solid $border-color;
-            cursor: pointer;
+
+            select {
+              height: 40px;
+              border: none;
+              outline: none;
+              border-bottom: 1px solid $border-color;
+              cursor: pointer;
+            }
           }
         }
 

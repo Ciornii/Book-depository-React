@@ -5,8 +5,12 @@ import { useParams } from 'react-router-dom';
 const SinglePage = ({ books }) => {
   let { id } = useParams();
 
+  console.log(books);
+
   const book = books.filter(i => i.id == id);
   const { title, author, description, photo } = book[0];
+
+  console.log(book);
 
   return (
     <div className='single-page'>

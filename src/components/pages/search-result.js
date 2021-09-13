@@ -33,6 +33,8 @@ const SearchResults = ({
     } else {
       setResult([]);
     }
+
+    console.log(result);
   }, [searchTerm]);
 
   return (
