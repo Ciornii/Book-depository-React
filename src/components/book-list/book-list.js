@@ -28,6 +28,9 @@ const BookListContainer = ({
     return <Spinner />;
   }
 
+  // ! fix spinner
+  console.log(loading);
+
   if (error) {
     return <ErrorIndicator />;
   }
@@ -51,6 +54,10 @@ const BookListContainer = ({
   );
 };
 
+const mapStateToProps = ({ bookList: { loading, error } }) => {
+  return { loading, error };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onAddedToMyList: id => {
@@ -66,4 +73,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(BookListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BookListContainer);

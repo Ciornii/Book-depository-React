@@ -63,6 +63,17 @@ const CatalogPage = ({ books }) => {
     return books;
   }, [sortedBooks, activeCategory, activeAuthor]);
 
+  const filterBooks = (elem, filter) => {
+    setFilteredBy(filter);
+    if (filter == 'category') {
+      setActiveAuthor('');
+      setActiveCategory(elem);
+    } else if (filter == 'author') {
+      setActiveCategory('');
+      setActiveAuthor(elem);
+    }
+  };
+
   useEffect(() => {
     setVisible(perPage);
   }, [perPage]);
@@ -74,17 +85,6 @@ const CatalogPage = ({ books }) => {
       setLoadMoreBtn(false);
     }
   }, [sortedAndFilteredBooks, visible]);
-
-  const filterBooks = (elem, filter) => {
-    setFilteredBy(filter);
-    if (filter == 'category') {
-      setActiveAuthor('');
-      setActiveCategory(elem);
-    } else if (filter == 'author') {
-      setActiveCategory('');
-      setActiveAuthor(elem);
-    }
-  };
 
   const showMoreBooks = () => {
     if (visible < sortedAndFilteredBooks.length) {
