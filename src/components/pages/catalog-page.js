@@ -44,12 +44,13 @@ const CatalogPage = ({ books, loading, fetchBooks }) => {
   }, []);
 
   const sortedBooks = useMemo(() => {
-    if (sortBy && sortBy == 'a-z') {
-      return orderBy(books, ['title'], ['asc']);
-    } else if (sortBy && sortBy == 'z-a') {
-      return orderBy(books, ['title'], ['desc']);
-    } else {
-      return books;
+    switch (sortBy) {
+      case 'a-z':
+        return orderBy(books, ['title'], ['asc']);
+      case 'z-a':
+        return orderBy(books, ['title'], ['desc']);
+      default:
+        return books;
     }
   }, [sortBy, books]);
 
@@ -59,9 +60,11 @@ const CatalogPage = ({ books, loading, fetchBooks }) => {
       return sortedBooks.filter(item => lowerCaseTrim(item.category).includes(activeCategory));
     } else if (filteredBy == 'author') {
       return sortedBooks.filter(item => lowerCaseTrim(item.author).includes(activeAuthor));
+    } else if (sortBy) {
+      return sortedBooks;
     }
     return books;
-  }, [sortedBooks, activeCategory, activeAuthor]);
+  }, [sortedBooks, activeCategory, activeAuthor, sortBy]);
 
   const filterBooks = (elem, filter) => {
     setFilteredBy(filter);
