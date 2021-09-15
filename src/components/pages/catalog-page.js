@@ -30,7 +30,7 @@ const authors = [
   'Anthony Robbins',
 ];
 
-const CatalogPage = ({ books }) => {
+const CatalogPage = ({ books, loading }) => {
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
   const [filteredBy, setFilteredBy] = useState('');
@@ -40,7 +40,11 @@ const CatalogPage = ({ books }) => {
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
 
   useEffect(() => {
+    console.log('loading bef ' + loading);
+
     fetchBooks();
+
+    console.log('loading after ' + loading);
   }, []);
 
   const sortedBooks = useMemo(() => {
@@ -172,8 +176,8 @@ const CatalogPage = ({ books }) => {
   );
 };
 
-const mapStateToProps = ({ bookList: { books } }) => {
-  return { books };
+const mapStateToProps = ({ bookList: { books, loading } }) => {
+  return { books, loading };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

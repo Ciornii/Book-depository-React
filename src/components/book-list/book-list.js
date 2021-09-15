@@ -24,12 +24,11 @@ const BookListContainer = ({
   visible
 }) => {
 
+  console.log('loading booklist ' + loading);
+
   if (loading) {
     return <Spinner />;
   }
-
-  // ! fix spinner
-  console.log(loading);
 
   if (error) {
     return <ErrorIndicator />;
