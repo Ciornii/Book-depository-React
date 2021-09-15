@@ -30,7 +30,7 @@ const authors = [
   'Anthony Robbins',
 ];
 
-const CatalogPage = ({ books, loading }) => {
+const CatalogPage = ({ books, loading, fetchBooks }) => {
   const [activeCategory, setActiveCategory] = useState('');
   const [activeAuthor, setActiveAuthor] = useState('');
   const [filteredBy, setFilteredBy] = useState('');
@@ -40,11 +40,7 @@ const CatalogPage = ({ books, loading }) => {
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
 
   useEffect(() => {
-    console.log('loading bef ' + loading);
-
     fetchBooks();
-
-    console.log('loading after ' + loading);
   }, []);
 
   const sortedBooks = useMemo(() => {
